@@ -1,3 +1,9 @@
+require 'pusher' # Recommended by Heroku.
+
+Pusher.app_id = '23418'
+Pusher.key    = '79279a 271 cabde 3a 73 b2'.   gsub ' ', ''
+Pusher.secret = 'a229 c25e 498625 ee9576'.     gsub ' ', ''
+
 StartupAbcdefg::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
