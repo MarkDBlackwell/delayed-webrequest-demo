@@ -1,8 +1,12 @@
-require 'pusher' # Recommended by Heroku.
+# require 'pusher' # Recommended by Heroku.
 
-Pusher.app_id = '23418'
-Pusher.key    = '79279a 271 cabde 3a 73 b2'.   gsub ' ', ''
-Pusher.secret = 'a229 c25e 498625 ee9576'.     gsub ' ', ''
+#Pusher.app_id = '23418'
+#Pusher.key    = '79279a 271 cabde 3a 73 b2'.   gsub ' ', ''
+#Pusher.secret = 'a229 c25e 498625 ee9576'.     gsub ' ', ''
+
+Pusher.app_id = ENV['PUSHER_APP_ID']
+Pusher.key    = ENV['PUSHER_KEY']
+Pusher.secret = ENV['PUSHER_SECRET']
 
 StartupAbcdefg::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
