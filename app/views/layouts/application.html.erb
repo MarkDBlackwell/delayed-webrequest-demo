@@ -28,6 +28,7 @@
 <body>
 
 <%= @bunny_queue.pop[:payload]  %> 
+<%= Rails.cache.read 'foo'  %> 
 
 <%= yield %>
 

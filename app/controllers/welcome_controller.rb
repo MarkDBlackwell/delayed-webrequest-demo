@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  before_filter :set_up_amqp, :set_up_pusher
+  before_filter :set_up_amqp, :set_up_pusher, :set_up_memcachier
 
   def index
   end
@@ -16,6 +16,11 @@ class WelcomeController < ApplicationController
 
   def set_up_pusher
     Pusher['test_channel'].trigger 'greet', :greeting => 'Hello from set_up_pusher'
+  end
+
+  def set_up_memcachier
+    Rails.cache.write 'foo', 'Hello from set_up_memcachier'
+
   end
 
 end
