@@ -4,8 +4,10 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile ~/.gitignore_global
 
-out/
-public/assets/
+/.env
+/out/
+/private/
+/public/assets/
 
 # Ignore bundler config
 /.bundle
@@ -15,21 +17,18 @@ public/assets/
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
-/tmp
+/tmp/
 
 # From GitHub:
+**.orig
 *.rbc
 *.sassc
-.sass-cache
 capybara-*.html
-.rspec
-/vendor/bundle
-/public/system/*
-/coverage/
-/spec/tmp/*
-**.orig
-rerun.txt
 pickle-email-*.html
-heroku-config-setup.sh
-rabbitmq-signing-key-public.asc
-.env
+rerun.txt
+/.rspec
+/.sass-cache
+/coverage/
+/public/system/*
+/spec/tmp/*
+/vendor/bundle/
