@@ -1,2 +1,1 @@
-web: RACK_ENV=development RAILS_ENV=development bundle exec rails server -p $PORT -e development
-
+web: bundle exec rackup -p $PORT -s $WEB_SERVER

@@ -7,6 +7,7 @@
   <script src="http://js.pusher.com/1.11/pusher.min.js"
           type="text/javascript"></script>
   <script type="text/javascript">
+
     // Enable pusher logging - don't include this in production
     Pusher.log = function(message) {
       if (window.console && window.console.log) window.console.log(message);
@@ -14,7 +15,6 @@
 
     // Flash fallback logging - don't include this in production
     WEB_SOCKET_DEBUG = true;
-
     var pusher = new Pusher('<%= Pusher.key %>'); // uses your API KEY
     var channel = pusher.subscribe('test_channel');
     channel.bind('greet', function(data) {
@@ -24,12 +24,8 @@
 
 </head> <body>
 
-<p>From bunny queue:<br /> &nbsp;
-<%= @bunny_queue.pop[:payload] %></p>
-
-<p>From Dalli::Client memcache:<br /> &nbsp;
-<%  c=Dalli::Client.new %>
-<%= c.get 'foo'         %></p>
+<p>From Rails.cache.read:<br /> &nbsp;
+<%= @cached_foo %></p>
 
 <%= yield %>
 

@@ -7,11 +7,12 @@ gem 'rails', '3.2.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'bunny'
+gem 'dalli'
+gem 'memcachier'
 gem 'pg'
 gem 'pusher'
-gem 'bunny'
-gem 'memcachier'
-gem 'dalli'
+gem 'thin'
 
 # Gems used only for assets and not required
 # in production environments by default.

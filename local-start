@@ -1,2 +1,2 @@
-source ./.env
+source ./local-env
 rails server -p 5000 -e development
