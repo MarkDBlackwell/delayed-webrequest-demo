@@ -27,8 +27,9 @@
 </head>
 <body>
 
-<%= @bunny_queue.pop[:payload]  %> 
-<%= Rails.cache.read 'foo'  %> 
+<%#= @bunny_queue.pop[:payload]  %><br />
+<% c = Dalli::Client.new  %> 
+<%= c.get 'foo'  %> 
 
 <%= yield %>
 
