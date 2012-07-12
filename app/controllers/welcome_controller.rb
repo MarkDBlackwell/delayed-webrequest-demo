@@ -12,11 +12,11 @@ class WelcomeController < ApplicationController
     b = Bunny.new
     b.start # Does not return b.
     @bunny_queue = b.queue 'test1'
-    b.exchange('').publish 'Hello from set_up_amqp in Rails app', :key => 'test1'
+#   b.exchange('').publish 'Hello from Rails app, set_up_amqp', :key => 'test1'
   end
 
   def set_up_memcachier
-#    Rails.cache.write 'foo', 'Hello from set_up_memcachier in Rails app'
+##    Rails.cache.write 'foo', 'Hello from Rails app, set_up_memcachier'
   end
 
 end
