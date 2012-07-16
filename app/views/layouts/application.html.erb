@@ -22,11 +22,55 @@
     });
   </script>
 
+<script type="text/javascript">
+function targetIds() {
+  return ["one", "two", "three", "four", "five"];
+}
+function Target(id) {
+  this.id = id;
+}
+
+function selectTargets() {
+  var targetIdsVar = targetIds();
+  var len = targetIdsVar.length;
+  var result = new Array(len);
+  var each;
+  for (var i = 0; i < len; i++) {
+    each = targetIdsVar[i];
+    result[i] = new Target(each);
+  }
+  result.push(new Target("barf")); //Temporary test.
+  return result;
+}
+
+function alterTargets() {
+  var elem;
+  var targets = selectTargets();
+  var len = targets.length;
+  for (var i = 0; i < len; i++) {
+    elem = document.getElementById(targets[i].id);
+    if (null === elem) continue;
+    elem.innerHTML="<span>changed</span>"
+  }
+}
+</script>
+
 </head> <body>
 
 <p>From Rails.cache.read:<br /> &nbsp;
 <%= @cached_foo %></p>
 
+<a onMouseover="alterTargets();" href="#">change</a>
+<br />
+<div id="one">one-content</div>
+<div id="two">two-content</div>
+<div id="three">three-content</div>
+<div id="four">four-content</div>
+<div id="five">five-content</div>
+
 <%= yield %>
 
 </body> </html>
+
+
+
