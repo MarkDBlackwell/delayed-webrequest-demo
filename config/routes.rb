@@ -1,6 +1,8 @@
 StartupAbcdefg::Application.routes.draw do
   get "welcome/index"
 
+  get '/ajax_load_events' => 'welcome#ajax_load_events'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

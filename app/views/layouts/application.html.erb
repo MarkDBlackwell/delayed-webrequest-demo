@@ -19,6 +19,7 @@
     var channel = pusher.subscribe('test_channel');
     channel.bind('greet', function(data) {
       alert(data.greeting);
+      alterTargets();
     });
   </script>
 

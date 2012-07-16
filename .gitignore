@@ -9,7 +9,6 @@
 /out/
 /private/
 /public/assets/
-/try/
 
 # Ignore bundler config
 /.bundle

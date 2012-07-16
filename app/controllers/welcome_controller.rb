@@ -1,9 +1,22 @@
 class WelcomeController < ApplicationController
   before_filter :set_up_amqp
 
+  respond_to :html, :js
+
+# Following stackoverflow.com/questions/7548531/how-do-i-reload-a-div-with-a-rails-partial
+
   def index
     @cached_foo = Rails.cache.read 'foo'
     Rails.cache.clear 'foo'
+    @events = []
+  end
+
+  def ajax_load_events
+    @events << 'abc'
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   protected
