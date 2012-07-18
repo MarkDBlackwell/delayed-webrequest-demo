@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
-# ruby '1.9.2' # Later bundler gem version.
+# ruby '1.9.2'
+ruby '1.9.3'
+
+gem 'bundler', '~>1.2.0.pre'
 
 gem 'rails', '3.2.6'
 

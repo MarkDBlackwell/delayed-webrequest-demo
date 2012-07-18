@@ -116,6 +116,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (~> 1.2.0.pre)
   bunny
   coffee-rails (~> 3.2.1)
   dalli

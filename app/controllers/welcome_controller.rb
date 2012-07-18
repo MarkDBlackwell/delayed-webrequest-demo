@@ -36,7 +36,7 @@ class WelcomeController < ApplicationController
     raise 'q is nil' if q.nil?
 
     e = b.exchange my_exchange_name # Use a direct exchange.
-    e.publish 'Hello from Rails app, set_up_amqp', :key => my_queue_name
+    e.publish 'Hello from Rails app (AMQP)', :key => my_queue_name
     b.stop # Close the connection to AMQP.
   end
 
