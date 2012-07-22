@@ -31,7 +31,11 @@ EXCHANGE_NAME = 'com.herokuapp.delayed-webrequest'
     bunny.start # Returns nil. Start a connection to AMQP.
 
     exchange = bunny.exchange EXCHANGE_NAME, :type => :direct
-    exchange.publish 'Hello from Rails app (AMQP)'
+
+    external_request_url = 'http://whoismyrepresentative.com/whoismyrep.php?zip=46544'
+##  exchange.publish 'Hello from Rails app (AMQP)'
+    exchange.publish external_request_url
+
     bunny.stop # Close the connection to AMQP.
   end
 
