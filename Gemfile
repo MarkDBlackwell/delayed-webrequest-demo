@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
 
-# ruby '1.9.2'
 ruby '1.9.3'
 
-gem 'bundler', '~>1.2.0.pre'
+gem 'bundler', '~>1.2.0.rc'
 
 gem 'rails', '3.2.6'
 
@@ -12,7 +11,11 @@ gem 'rails', '3.2.6'
 
 gem 'bunny'
 gem 'dalli'
-gem 'memcachier'
+
+gem 'eventmachine', '~>1.0.0.rc4'
+
+# gem 'memcachier'
+
 gem 'pg'
 gem 'pusher'
 gem 'thin'

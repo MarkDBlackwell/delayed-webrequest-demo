@@ -19,7 +19,8 @@
     var channel = pusher.subscribe('test_channel');
     channel.bind('greet', function(data) {
       alert(data.greeting);
-      alterTargets();
+      requestUpdate();
+//    alterTargets();
     });
   </script>
 
@@ -47,6 +48,7 @@ function selectTargets() {
 var newContent = "<ol><li>hello</li><li>there</li><li>in</li><li>Pusher land</li></ol>"
 
 function alterTargets() {
+  $('#one').css("color","yellow");
   var elem;
   var targets = selectTargets();
   var len = targets.length;
@@ -56,6 +58,12 @@ function alterTargets() {
     elem.innerHTML = newContent;
   }
 }
+
+function requestUpdate() {
+  jQuery.ajax ( '/ajax_load_events.json', 
+
+}
+
 </script>
 
 </head> <body>
@@ -63,11 +71,26 @@ function alterTargets() {
 <p>From Rails.cache.read:<br /> &nbsp;
 <%= @cached_foo %></p>
 
+
+<div id="error"></div>
+
 <div id="one">one-content</div>
 <div id="two">two-content</div>
 <div id="three">three-content</div>
 <div id="four">four-content</div>
 <div id="five">five-content</div>
+
+<% u = url_for '/ajax_load_events.json' %>
+<%= u %>
+
+<%#= link_to 'Ajax update', {:controller => 'welcome', :action => 'ajax_load_events', :remote => true, :update => 'one'} %>
+<%#= link_to 'Ajax update', u, { :update => { :success => 'one', :failure => 'error' }, :remote => true } %>
+<%#= link_to 'Ajax update', u, :update => 'one', :remote => true  %>
+<%#= link_to 'Ajax update', u, :update => 'one', :remote => true  %>
+<%#= button_to 'Ajax update', u, :update => 'one', :remote => true  %>
+<%= button_to 'Ajax update', u, :update => '#one', :remote => true, :method => 'get'  %>
+
+
 
 <%= yield %>
 
