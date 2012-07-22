@@ -1,0 +1,38 @@
+<!DOCTYPE html> <html> <head>
+<script src="my-jquery-1.7.2.js"></script>
+<script type="text/javascript">
+function replaceOne() {
+  var becomes = 'new stuff';
+  var a = jQuery('#one');
+  a.empty();
+  a.append(becomes);
+}
+// DOM fully loaded:
+jQuery(window.document).ready(function() {
+  replaceOne();
+  jQuery.post('/ajax', 'one', function(response) {
+    alert(response);
+    replaceOne();
+  });
+});
+// Images, etc. fully loaded:
+jQuery(window).load(function() {
+});
+</script>
+
+</head> <body>
+
+<div id="error"></div>
+
+<div id="one">one-content</div>
+<div id="two">two-content</div>
+<div id="three">three-content</div>
+<div id="four">four-content</div>
+<div id="five">five-content</div>
+
+<a href="#">a</a>
+
+</body> </html>
+
+
+

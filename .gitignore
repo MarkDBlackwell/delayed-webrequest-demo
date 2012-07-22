@@ -9,6 +9,7 @@
 /out/
 /private/
 /public/assets/
+/app/views/layouts/my-jquery*.js
 
 # Ignore bundler config
 /.bundle
