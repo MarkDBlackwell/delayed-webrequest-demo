@@ -1,9 +1,12 @@
-<!DOCTYPE html> <html> <head>
+<!DOCTYPE html>
+<html> <head>
 <title>bare Ajax</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <script type="text/javascript">
 <!--
-//Browser Support Code
+
+//Browser support code:
+
 function getAjaxObject(){
   var result;
   try{
@@ -25,6 +28,8 @@ function getAjaxObject(){
   }
   return result;
 }
+
+//Non-browser support code:
 
 function targetIds() {
   var s = 'replaceable-';
