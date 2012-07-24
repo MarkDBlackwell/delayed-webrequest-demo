@@ -1,0 +1,112 @@
+<!DOCTYPE html> <html> <head>
+<title>bare Ajax</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8">
+<script type="text/javascript">
+<!--
+//Browser Support Code
+function getAjaxObject(){
+  var result;
+  try{
+    // Gecko: Mozilla, Firefox; Webkit: Chrome, Safari; ?: Opera; (etc.?)
+    result = new XMLHttpRequest();
+  } catch (e){
+    // Internet Explorer Browsers
+    try{
+      result = new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
+      try{
+        result = new ActiveXObject("Microsoft.XMLHTTP");
+      } catch (e){
+        // Something went wrong
+        alert('Unable to obtain an Ajax object.');
+        return false;
+      }
+    }
+  }
+  return result;
+}
+
+function targetIds() {
+  var s = 'replaceable-';
+  return [s+'one', s+'two', s+'three', s+'four', s+'five'];
+}
+
+function Target(id) {
+  this.id = id;
+}
+
+function selectTargets() {
+  var targetIdsVar = targetIds();
+  var len = targetIdsVar.length;
+  var result = new Array(len);
+  var each;
+  for (var i = 0; i < len; i++) {
+    each = targetIdsVar[i];
+    result[i] = new Target(each);
+  }
+  result.push(new Target('make sure later filter works'));
+  return result;
+}
+
+function alterTargets(s) {
+  var elem;
+  var targets = selectTargets();
+  var len = targets.length;
+  for (var i = 0; i < len; i++) {
+    elem = document.getElementById(targets[i].id);
+    if (null === elem) continue;
+    elem.innerHTML = s;
+  }
+}
+
+function requestUpdate() {
+  var req = getAjaxObject();
+  req.open('GET', 'http://localhost:5000/ajax',false);
+  req.send();
+  //alert(req.status);
+  var myJSON = JSON.parse(req.responseText);
+  var s = myJSON.message;
+  alert(s);
+  alterTargets(s);
+
+}
+
+function replaceOne() {
+  var becomes = 'new stuff';
+//  var a = jQuery('#one');
+//  a.empty();
+//  a.append(becomes);
+}
+
+// When DOM fully loaded:
+window.document.addEventListener('DOMContentLoaded', function() {
+  //alert('window document ready');
+
+  replaceOne();
+
+//  jQuery.get('/ajax_load_events.json', 'one', function(response) {
+//    alert(response);
+//    replaceOne();
+//  });
+
+}, false);
+
+// When images, etc. fully loaded:
+window.onload = function() {
+  //alert('window load');
+  requestUpdate();
+};
+//-->
+</script> </head> <body>
+
+<div id="error"></div>
+
+<div id="replaceable-one"  >one-content</div>
+<div id="replaceable-two"  >two-content</div>
+<div id="replaceable-three">three-content</div>
+<div id="replaceable-four" >four-content</div>
+<div id="replaceable-five" >five-content</div>
+
+<a href="#">a</a>
+
+</body> </html>

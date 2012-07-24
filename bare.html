@@ -3,11 +3,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <script type="text/javascript">
 <!--
+
 //Browser Support Code
 function getAjaxObject(){
   var result;
   try{
-    // Opera 8.0+, Firefox, Safari
+    // Gecko: Mozilla, Firefox; Webkit: Chrome, Safari; ?: Opera; (etc.?)
     result = new XMLHttpRequest();
   } catch (e){
     // Internet Explorer Browsers
@@ -18,7 +19,7 @@ function getAjaxObject(){
         result = new ActiveXObject("Microsoft.XMLHTTP");
       } catch (e){
         // Something went wrong
-        alert("Your browser broke!");
+        alert('Unable to obtain an Ajax object.');
         return false;
       }
     }
@@ -26,90 +27,46 @@ function getAjaxObject(){
   return result;
 }
 
-function targetIds() {
-  return ["one", "two", "three", "four", "five"];
+function targetId() {
+  return 'replaceable';
 }
 
 function Target(id) {
   this.id = id;
 }
 
-function selectTargets() {
-  var targetIdsVar = targetIds();
-  var len = targetIdsVar.length;
-  var result = new Array(len);
-  var each;
-  for (var i = 0; i < len; i++) {
-    each = targetIdsVar[i];
-    result[i] = new Target(each);
-  }
-  result.push(new Target("junk")); //Temporary test.
-  return result;
+function alterTarget(s) {
+  var target = new Target(targetId());
+  var elem = document.getElementById(target.id);
+  elem.innerHTML = s;
 }
 
-var newContent = "<ol><li>hello</li><li>there</li><li>in</li><li>Pusher land</li></ol>"
-
-function alterTargets(s) {
-//  $('#one').css("color","yellow");
-  var elem;
-  var targets = selectTargets();
-  var len = targets.length;
-  for (var i = 0; i < len; i++) {
-    elem = document.getElementById(targets[i].id);
-    if (null === elem) continue;
-//    elem.innerHTML = newContent;
-    elem.innerHTML = s;
-  }
-}
-
-function requestUpdate() {
-  var ajaxRequest = getAjaxObject();
-  ajaxRequest.open('GET', 'http://localhost:5000/ajax',false);
-  ajaxRequest.send();
-  //alert(ajaxRequest.status);
-  var myJSON = JSON.parse(ajaxRequest.responseText);
+function requestAjaxUpdate() {
+  var req = getAjaxObject();
+  //req.open('GET', 'http://localhost:5000/ajax',false);
+  req.open('GET', 'http://ajax-testbed-simple.herokuapp.com/ajax',false); //Synchronous.
+  req.send();
+  //alert(req.status);
+  var myJSON = JSON.parse(req.responseText);
   var s = myJSON.message;
   alert(s);
-  alterTargets(s);
-
-}
-
-function replaceOne() {
-  var becomes = 'new stuff';
-//  var a = jQuery('#one');
-//  a.empty();
-//  a.append(becomes);
+  alterTarget(s);
 }
 
 // When DOM fully loaded:
 window.document.addEventListener('DOMContentLoaded', function() {
   //alert('window document ready');
-
-  replaceOne();
-
-//  jQuery.get('/ajax_load_events.json', 'one', function(response) {
-//    alert(response);
-//    replaceOne();
-//  });
-
 }, false);
 
 // When images, etc. fully loaded:
 window.onload = function() {
   //alert('window load');
-  requestUpdate();
+  requestAjaxUpdate();
 };
+
 //-->
 </script> </head> <body>
 
-<div id="error"></div>
-
-<div id="one">one-content</div>
-<div id="two">two-content</div>
-<div id="three">three-content</div>
-<div id="four">four-content</div>
-<div id="five">five-content</div>
-
-<a href="#">a</a>
+<div id="replaceable"  >replaceable-content</div>
 
 </body> </html>
