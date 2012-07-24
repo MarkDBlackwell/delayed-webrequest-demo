@@ -33,7 +33,7 @@ function AjaxObject(){
   return result;
 }
 
-//Non-browser support code:
+//Other code:
 
 // Enable pusher logging - don't include this in production
 Pusher.log = function(message) {
@@ -48,7 +48,6 @@ var channel = pusher.subscribe('test_channel');
 channel.bind('greet', function(data) {
   alert(data.greeting);
   requestAjaxUpdate();
-//alterTargets();
 });
 
 var newContent = "<ol><li>hello</li><li>there</li><li>in</li><li>Pusher land</li></ol>"
@@ -75,7 +74,7 @@ function selectTargets() {
 }
 
 function alterTargets() {
-  //$('#one').css("color","yellow");
+  $('#one').css("color","yellow");
   var targets = selectTargets();
   var elem;
   var len = targets.length;
@@ -87,15 +86,17 @@ function alterTargets() {
 }
 
 function requestAjaxUpdate() {
-
-
-//  jQuery.ajax ( '/ajax_load_events.json', 
-
-
-
-
-
-
+  //jQuery.ajax ( '/ajax_load_events.json', 
+  var r = new AjaxObject();
+  //r.open('GET', 'http://localhost:5000/ajax',false);
+  r.open('GET', 'http://ajax-testbed-simple.herokuapp.com/ajax',false); //Synchronous.
+  r.send();
+  //alert(req.status);
+  var p = JSON.parse(r.responseText);
+  var s = p.message;
+  //alert(s);
+    newContent = s;
+  alterTargets();
 }
 
 function replaceOne() {
@@ -109,7 +110,6 @@ function replaceOne() {
 //jQuery(window.document).ready(function() {
 window.document.addEventListener('DOMContentLoaded', function() {
   alert('window.document ready (DOMContentLoaded)');
-  requestAjaxUpdate();
   //jQuery.get('/ajax_load_events.json', 'one', function(response) {
   //replaceOne();
   //alert(response);
@@ -118,7 +118,9 @@ window.document.addEventListener('DOMContentLoaded', function() {
 // When images, etc. are fully loaded:
 //jQuery(window).load(function() {
 window.onload = function() {
-  //alert('window.onload');
+  alert('window.onload');
+  //alterTargets();
+  //requestAjaxUpdate();
 };
 
 //-->
