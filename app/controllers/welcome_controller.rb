@@ -6,7 +6,7 @@ class WelcomeController < ApplicationController
 
 # Following stackoverflow.com/questions/7548531/how-do-i-reload-a-div-with-a-rails-partial
 
-AMQP_URL_ENVIRONMENT_VARIABLE = 'CLOUDAMQP_URL'
+AMQP_URL      = ENV['CLOUDAMQP_URL']
 EXCHANGE_NAME = 'com.herokuapp.delayed-webrequest'
 
   def index
@@ -40,7 +40,7 @@ EXCHANGE_NAME = 'com.herokuapp.delayed-webrequest'
   protected
 
   def set_up_amqp
-    u = ENV[AMQP_URL_ENVIRONMENT_VARIABLE]
+    u = AMQP_URL
     raise 'u is nil' if u.nil?
     @bunny = u.blank? ? (Bunny.new :logging => false) : (Bunny.new u, :logging => false)
     @bunny.start # Returns nil. Start a connection to AMQP.
