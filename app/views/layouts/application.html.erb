@@ -1,4 +1,5 @@
-<!DOCTYPE html> <html> <head>
+<!DOCTYPE html>
+<html> <head>
 <title>Delayed WebRequest Demo</title>
 <%= stylesheet_link_tag "application", :media => "all" %>
 <%= javascript_include_tag "application" %>
@@ -9,6 +10,30 @@
         type="text/javascript"></script>
 
 <script type="text/javascript">
+<!--
+
+//Browser support code:
+
+function AjaxObject(){
+  var result;
+  try{ //Gecko: Mozilla, Firefox; Webkit: Chrome, Safari; ?: Opera; (etc.?) browsers:
+    result = new XMLHttpRequest();
+  } catch (e){ //Internet Explorer browsers:
+    try{
+      result = new ActiveXObject('Msxml2.XMLHTTP');
+    } catch (e) {
+      try{
+        result = new ActiveXObject('Microsoft.XMLHTTP');
+      } catch (e){ //Something went wrong:
+        alert('Unable to obtain an Ajax object.');
+        return false;
+      }
+    }
+  }
+  return result;
+}
+
+//Non-browser support code:
 
 // Enable pusher logging - don't include this in production
 Pusher.log = function(message) {
@@ -22,15 +47,17 @@ var channel = pusher.subscribe('test_channel');
 
 channel.bind('greet', function(data) {
   alert(data.greeting);
-  requestUpdate();
+  requestAjaxUpdate();
 //alterTargets();
 });
+
+var newContent = "<ol><li>hello</li><li>there</li><li>in</li><li>Pusher land</li></ol>"
 
 function targetIds() {
   return ["one", "two", "three", "four", "five"];
 }
 
-function Target(id) {
+function Target(id) { //From string to property.
   this.id = id;
 }
 
@@ -47,12 +74,10 @@ function selectTargets() {
   return result;
 }
 
-var newContent = "<ol><li>hello</li><li>there</li><li>in</li><li>Pusher land</li></ol>"
-
 function alterTargets() {
-  $('#one').css("color","yellow");
-  var elem;
+  //$('#one').css("color","yellow");
   var targets = selectTargets();
+  var elem;
   var len = targets.length;
   for (var i = 0; i < len; i++) {
     elem = document.getElementById(targets[i].id);
@@ -61,34 +86,42 @@ function alterTargets() {
   }
 }
 
-function requestUpdate() {
+function requestAjaxUpdate() {
+
+
 //  jQuery.ajax ( '/ajax_load_events.json', 
+
+
+
+
+
+
 }
 
 function replaceOne() {
   var becomes = 'new stuff';
-  var a = jQuery('#one');
+  //var a = jQuery('#one');
   a.empty();
   a.append(becomes);
 }
 
-// When DOM fully loaded:
-jQuery(window.document).ready(function() {
-  alert('window document ready');
+// When the DOM is fully loaded:
+//jQuery(window.document).ready(function() {
+window.document.addEventListener('DOMContentLoaded', function() {
+  alert('window.document ready (DOMContentLoaded)');
+  requestAjaxUpdate();
+  //jQuery.get('/ajax_load_events.json', 'one', function(response) {
+  //replaceOne();
+  //alert(response);
+}, false);
 
-  replaceOne();
+// When images, etc. are fully loaded:
+//jQuery(window).load(function() {
+window.onload = function() {
+  //alert('window.onload');
+};
 
-  jQuery.get('/ajax_load_events.json', 'one', function(response) {
-//  alert(response);
-//  replaceOne();
-  });
-});
-
-// When images, etc. fully loaded:
-jQuery(window).load(function() {
-  alert('window load');
-});
-
+//-->
 </script> </head> <body>
 
 <p>From Rails.cache.read:<br /> &nbsp;
@@ -117,6 +150,3 @@ jQuery(window).load(function() {
 <%= yield %>
 
 </body> </html>
-
-
-

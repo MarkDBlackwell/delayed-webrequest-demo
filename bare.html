@@ -1,6 +1,14 @@
 <!DOCTYPE html> <html> <head>
 <title>Simple Ajax</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+
+
+
+
+
+
+
+
 <script type="text/javascript">
 <!--
 
@@ -27,6 +35,24 @@ function AjaxObject(){
 
 //Non-browser support code:
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function targetId() {
   return 'replaceable';
 }
@@ -35,10 +61,29 @@ function Target(id) { //From string to property.
   this.id = id;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 function alterTarget(s) {
+
   var target = new Target(targetId());
+
+
+
   var element = document.getElementById(target.id);
+
   element.innerHTML = s;
+
 }
 
 function requestAjaxUpdate() {
@@ -53,13 +98,25 @@ function requestAjaxUpdate() {
   alterTarget(s);
 }
 
+
+
+
+
+
+
+
 // When the DOM is fully loaded:
+
 window.document.addEventListener('DOMContentLoaded', function() {
   alert('window.document ready (DOMContentLoaded)');
   requestAjaxUpdate();
+
+
+
 }, false);
 
 // When images, etc. are fully loaded:
+
 window.onload = function() {
   //alert('window.onload');
 };
@@ -67,6 +124,29 @@ window.onload = function() {
 //-->
 </script> </head> <body>
 
+
+
+
+
+
 <div id="replaceable">replaceable-content</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body> </html>
