@@ -12,7 +12,7 @@
 <script type="text/javascript">
 <!--
 
-//Browser support code:
+//Browser-supporting code:
 
 function AjaxObject(){
   var result;
@@ -86,31 +86,33 @@ function alterTargets() {
 }
 
 function requestAjaxUpdate() {
-  //jQuery.ajax ( '/ajax_load_events.json', 
+  //jQuery.ajax ( '/ajax.json', 
   var r = new AjaxObject();
   //r.open('GET', 'http://localhost:5000/ajax',false);
-  r.open('GET', 'http://ajax-testbed-simple.herokuapp.com/ajax',false); //Synchronous.
+  //r.open('GET', 'http://ajax-testbed-simple.herokuapp.com/ajax',false); //Synchronous.
+  r.open('GET', '/ajax.json',false); //Synchronous.
   r.send();
-  //alert(req.status);
+  //alert(r.status);
+  //alert(r.responseText);
   var p = JSON.parse(r.responseText);
   var s = p.message;
   //alert(s);
-    newContent = s;
+  newContent = s;
   alterTargets();
 }
 
-function replaceOne() {
-  var becomes = 'new stuff';
-  //var a = jQuery('#one');
-  a.empty();
-  a.append(becomes);
-}
+//function replaceOne() {
+  //var becomes = 'new stuff';
+  ////var a = jQuery('#one');
+  //a.empty();
+  //a.append(becomes);
+//}
 
 // When the DOM is fully loaded:
 //jQuery(window.document).ready(function() {
 window.document.addEventListener('DOMContentLoaded', function() {
-  alert('window.document ready (DOMContentLoaded)');
-  //jQuery.get('/ajax_load_events.json', 'one', function(response) {
+  //alert('window.document ready (DOMContentLoaded)');
+  //jQuery.get('/ajax.json', 'one', function(response) {
   //replaceOne();
   //alert(response);
 }, false);
@@ -118,7 +120,7 @@ window.document.addEventListener('DOMContentLoaded', function() {
 // When images, etc. are fully loaded:
 //jQuery(window).load(function() {
 window.onload = function() {
-  alert('window.onload');
+  //alert('window.onload');
   //alterTargets();
   //requestAjaxUpdate();
 };
@@ -137,17 +139,19 @@ window.onload = function() {
 <div id="four">four-content</div>
 <div id="five">five-content</div>
 
-<% u = url_for '/ajax_load_events.json' %>
-<%= u %>
+<%# u = url_for '/ajax.json' %>
+<%#= u %>
 
-<%#= link_to 'Ajax update', {:controller => 'welcome', :action => 'ajax_load_events', :remote => true, :update => 'one'} %>
+<%#= link_to 'Ajax update', {:controller => 'welcome', :action => 'ajax', :remote => true, :update => 'one'} %>
 <%#= link_to 'Ajax update', u, { :update => { :success => 'one', :failure => 'error' }, :remote => true } %>
 <%#= link_to 'Ajax update', u, :update => 'one', :remote => true  %>
 <%#= link_to 'Ajax update', u, :update => 'one', :remote => true  %>
 <%#= button_to 'Ajax update', u, :update => 'one', :remote => true  %>
 <%#= button_to 'Ajax update', u, :update => '#one', :remote => true, :method => 'get'  %>
 
+<!--
 <a href="#">a</a>
+-->
 
 <%= yield %>
 

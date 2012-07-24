@@ -22,17 +22,16 @@ EXCHANGE_NAME = 'com.herokuapp.delayed-webrequest'
     @events = []
   end
 
-  def ajax_load_events
-    raise 'got'
+  def ajax
     @events = []
-    @events << 'abc'
+    @events = { "message" => "Content from Rails app" }
 
     respond_to do |format|
       format.json do
         render :json => @events
       end
       format.html do
-        render :text => 'Should request JSON format'
+        render :text => '{ "a" : "b" }'
       end
     end
   end
