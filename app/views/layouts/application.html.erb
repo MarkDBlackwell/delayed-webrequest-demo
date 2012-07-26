@@ -125,6 +125,11 @@ window.onload = function() {
   //requestAjaxUpdate();
 };
 
+window.onunload = function() {
+  //alert('got to unload');
+  pusher.disconnect(); //Yet still get error in javascript error console.
+};
+
 //-->
 </script> </head> <body>
 
