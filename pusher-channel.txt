@@ -1,0 +1,1 @@
+n=3; n.times{|i| p [i, 16**(2*i), (SecureRandom.hex i)]}

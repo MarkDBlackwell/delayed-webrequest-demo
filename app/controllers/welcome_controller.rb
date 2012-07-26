@@ -2,6 +2,8 @@ class WelcomeController < ApplicationController
   before_filter :set_up_amqp,   :except => :ajax
   after_filter :tear_down_amqp, :except => :ajax
 
+# %%wel
+
   respond_to :html, :json
 
 # Following stackoverflow.com/questions/7548531/how-do-i-reload-a-div-with-a-rails-partial
@@ -11,10 +13,16 @@ class WelcomeController < ApplicationController
         http://whoismyrepresentative.com/whoismyrep.php?zip=46544
         http://whoismyrepresentative.com/whoismyrep.php?zip=10001 ]
 
+    @pusher_channel = SecureRandom.hex 4/2
+    data = {
+        :message => :'Hello from Rails app (AMQP)',
+        :pusher_channel => @pusher_channel,
+        }
+## print '@exchange: ';p @exchange
 #   external_request_urls.each {|e| @exchange.publish e}
 #   @exchange.publish 'Hello from Rails app (AMQP)', :mandatory => true
-## print '@exchange: ';p @exchange
-    @exchange.publish 'Hello from Rails app (AMQP)', :key => routing_key
+#   @exchange.publish 'Hello from Rails app (AMQP)', :key => routing_key
+    @exchange.publish data.to_json, :key => routing_key
 
     @cached_foo = Rails.cache.read 'foo'
     Rails.cache.clear 'foo'
