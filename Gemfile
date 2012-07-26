@@ -16,8 +16,6 @@ gem 'dalli'
 
 gem 'eventmachine', '~>1.0.0.rc4'
 
-# gem 'memcachier'
-
 gem 'pg'
 gem 'pusher'
 gem 'thin'

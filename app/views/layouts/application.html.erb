@@ -48,8 +48,7 @@ channel.bind('updates_ready', function(data) {
   requestAjaxUpdate();
 });
 
-var newContent = "<ol><li>hello</li><li>there</li><li>in</li><li>Pusher land</li></ol>"
-
+//TODO: use the DOM ID's of the (actual) replaceable DIV's.
 function targetIds() {
   return ["one", "two", "three", "four", "five"];
 }
@@ -71,14 +70,18 @@ function selectTargets() {
   return result;
 }
 
-function alterTargets() {
-  $('#one').css("color","yellow");
+function alterTargets(newContent) {
+  //$('#one').css("color","yellow");
+  jQuery('#one').css("color","yellow");
   var targets = selectTargets();
   var elem;
   var len = targets.length;
   for (var i = 0; i < len; i++) {
+    //elem = jQuery(targets[i].id);
     elem = document.getElementById(targets[i].id);
     if (null === elem) continue;
+    //elem.empty();
+    //elem.append(becomes);
     elem.innerHTML = newContent;
   }
 }
@@ -86,7 +89,6 @@ function alterTargets() {
 function requestAjaxUpdate() {
   //jQuery.ajax ( '/ajax.json', 
   var r = new AjaxObject();
-  //r.open('GET', 'http://localhost:5000/ajax',false);
   //r.open('GET', 'http://ajax-testbed-simple.herokuapp.com/ajax',false); //Synchronous.
   r.open('GET', '/ajax.json',false); //Synchronous.
   r.send();
@@ -95,23 +97,14 @@ function requestAjaxUpdate() {
   var p = JSON.parse(r.responseText);
   var s = p.message;
   //alert(s);
-  newContent = s;
-  alterTargets();
+  alterTargets(s);
 }
-
-//function replaceOne() {
-  //var becomes = 'new stuff';
-  ////var a = jQuery('#one');
-  //a.empty();
-  //a.append(becomes);
-//}
 
 // When the DOM is fully loaded:
 //jQuery(window.document).ready(function() {
 window.document.addEventListener('DOMContentLoaded', function() {
   //alert('window.document ready (DOMContentLoaded)');
   //jQuery.get('/ajax.json', 'one', function(response) {
-  //replaceOne();
   //alert(response);
 }, false);
 
@@ -119,12 +112,10 @@ window.document.addEventListener('DOMContentLoaded', function() {
 //jQuery(window).load(function() {
 window.onload = function() {
   //alert('window.onload');
-  //alterTargets();
-  //requestAjaxUpdate();
 };
 
 window.onunload = function() {
-  //alert('got to unload');
+  //alert('window.onunload');
   pusher.disconnect(); //Yet still get error in javascript error console.
 };
 
@@ -141,20 +132,6 @@ window.onunload = function() {
 <div id="three">three-content</div>
 <div id="four">four-content</div>
 <div id="five">five-content</div>
-
-<%# u = url_for '/ajax.json' %>
-<%#= u %>
-
-<%#= link_to 'Ajax update', {:controller => 'welcome', :action => 'ajax', :remote => true, :update => 'one'} %>
-<%#= link_to 'Ajax update', u, { :update => { :success => 'one', :failure => 'error' }, :remote => true } %>
-<%#= link_to 'Ajax update', u, :update => 'one', :remote => true  %>
-<%#= link_to 'Ajax update', u, :update => 'one', :remote => true  %>
-<%#= button_to 'Ajax update', u, :update => 'one', :remote => true  %>
-<%#= button_to 'Ajax update', u, :update => '#one', :remote => true, :method => 'get'  %>
-
-<!--
-<a href="#">a</a>
--->
 
 <%= yield %>
 

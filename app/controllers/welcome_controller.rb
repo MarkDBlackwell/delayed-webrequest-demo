@@ -20,8 +20,8 @@ class WelcomeController < ApplicationController
         }
 ## print '@exchange: ';p @exchange
 #   external_request_urls.each {|e| @exchange.publish e}
-#   @exchange.publish 'Hello from Rails app (AMQP)', :mandatory => true
-#   @exchange.publish 'Hello from Rails app (AMQP)', :key => routing_key
+
+#   @exchange.publish data.to_json, :mandatory => true
     @exchange.publish data.to_json, :key => routing_key
 
     @cached_foo = Rails.cache.read 'foo'
