@@ -13,7 +13,8 @@ class WelcomeController < ApplicationController
 
 #   external_request_urls.each {|e| @exchange.publish e}
 #   @exchange.publish 'Hello from Rails app (AMQP)', :mandatory => true
-    @exchange.publish 'Hello from Rails app (AMQP)'
+## print '@exchange: ';p @exchange
+    @exchange.publish 'Hello from Rails app (AMQP)', :key => routing_key
 
     @cached_foo = Rails.cache.read 'foo'
     Rails.cache.clear 'foo'
@@ -41,25 +42,60 @@ class WelcomeController < ApplicationController
     'amqp://guest:guest@disk30:5672'
   end
 
+  def begin_amqp_session(b)
+#   b.start_session # Does not return b.
+    b.start # Does not return b.
+
+    raise unless :connected == b.status
+## print 'b.status: '; p b.status
+  end
+
   def binding_key
     # 'delayed-webrequest'
     ''
   end
 
-  def close_amqp(b)
-    b.stop
+  def close_amqp_connection(b)
+    r = b.status
+## print 'r: '; p r
+    raise unless :connected == r
+    r = b.stop
+## print 'r: '; p r
+    raise unless :not_connected == r
+    r = b.stop
+## print 'r: '; p r
+## print 'b: '; p b
+    raise unless r.nil?
   end
 
   def create_or_access_queue(b)
-    q = b.queue queue_name,
-        :binding_key => binding_key
+#   q = b.queue queue_name,
+#       :binding_key => binding_key
+    q = b.queue queue_name
     raise 'q is nil' if q.nil?
     q
+  end
+
+  def end_amqp_session(b)
+    # Bunny doesn't break this out.
   end
 
   def exchange_name
     # 'com.herokuapp.delayed-webrequest.exchange'
     default_exchange_name = '' # Binds to all queues.
+  end
+
+  def open_amqp_connection
+    u = amqp_url
+    raise 'u is nil' if u.nil?
+    o = { \
+ #         :logfile => 'log/bunny.log', # Not on Heroku.
+ #         :logging => true
+        }
+    b = ('' == u) ? (Bunny.new o) : (Bunny.new u, o)
+    raise unless :not_connected == b.status
+## print 'b.status: '; p b.status
+    b
   end
 
   def pop_message(q)
@@ -68,48 +104,41 @@ class WelcomeController < ApplicationController
 
   def queue_name
     # 'com.herokuapp.delayed-webrequest.queue'
-    # 'test1'
-    ''
+    # ''
+    'test1'
   end
 
   def routing_key
     # 'delayed-webrequest'
-    ''
+    # ''
+    'test1'
   end
 
   def set_up_amqp
-    b = start_amqp_connection
+    b = open_amqp_connection
+    begin_amqp_session b
+#    raise unless :qos_ok == b.qos {}
     q = create_or_access_queue b
     e = use_exchange b
-    @bunny = b
-    @exchange = e
+    @bunny, @exchange = b, e
     true
   end
 
-  def start_amqp_connection
-    u = amqp_url
-    raise 'u is nil' if u.nil?
-    o = { \
-          :logfile => 'log/bunny.log', # Not on Heroku.
-          :logging => true
-        }
-    b = ('' == u) ? (Bunny.new o) : (Bunny.new u, o)
-    b.start # Does not return b. 
-    b
-  end
-
   def tear_down_amqp
-    @bunny.stop # Close the connection to AMQP.
+    end_amqp_session @bunny
+    close_amqp_connection @bunny
     true
   end
 
   def use_exchange(b)
     o = { \
-        :type => :direct,
-        :key => routing_key,
-        :mandatory => true
+        :type => :direct
+#        :type => :direct,
+#        :key => routing_key,
+#        :mandatory => true
         }
-    e = b.exchange exchange_name, o
+#   e = b.exchange exchange_name, o
+    b.exchange exchange_name
   end
 
 end

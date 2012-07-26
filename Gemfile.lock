@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/MarkDBlackwell/bunny.git
+  revision: 55dd652a3d245ab460fd61a82c76dcea0a06a478
+  specs:
+    bunny (0.9.0.pre1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -30,7 +36,6 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.2)
     builder (3.0.0)
-    bunny (0.8.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -116,7 +121,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.2.0.rc)
-  bunny
+  bunny!
   coffee-rails (~> 3.2.1)
   dalli
   eventmachine (~> 1.0.0.rc4)

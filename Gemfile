@@ -9,7 +9,9 @@ gem 'rails', '3.2.6'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'bunny'
+# gem 'bunny'
+gem 'bunny', :git => 'git://github.com/MarkDBlackwell/bunny.git'
+
 gem 'dalli'
 
 gem 'eventmachine', '~>1.0.0.rc4'
