@@ -15,10 +15,10 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: startup_abcdefg_development
+  database: <%= ENV['DATABASE_USERNAME'] %>_development
   pool: 5
-  username: startup_abcdefg
-  password: abc
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -41,15 +41,15 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: startup_abcdefg_test
+  database: <%= ENV['DATABASE_USERNAME'] %>_test
   pool: 5
-  username: startup_abcdefg
-  password: abc
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: startup_abcdefg_production
+  database: <%= ENV['DATABASE_USERNAME'] %>_production
   pool: 5
-  username: startup_abcdefg
-  password: abc
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
