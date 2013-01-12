@@ -1,10 +1,9 @@
-source 'https://rubygems.org'
+source :rubygems
 
 ruby '1.9.3'
-
-gem 'bundler', '~>1.2.0.rc'
-
-gem 'rails', '3.2.6'
+gem 'bundler', '>=1.3.0.pre.2'
+gem 'rake', '10.0.3'
+gem 'rails', '3.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
