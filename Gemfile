@@ -1,7 +1,7 @@
-source :rubygems
+source 'https://rubygems.org'
 
 ruby '1.9.3'
-gem 'bundler', '>=1.3.0.pre.2'
+gem 'bundler', '=1.5.2'
 gem 'rake', '10.0.3'
 gem 'rails', '3.2.11'
 
